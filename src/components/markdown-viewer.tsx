@@ -23,12 +23,11 @@ export function MarkdownViewer({
   const loadCompletionStatus = useCallback(() => {
     if (!filePath) return;
     try {
-      console.log(`Loading completion status for: ${filePath}`);
       // Initialize lessons if they don't exist
       LocalStorageService.initializeLessons();
 
       const isCompleted = LocalStorageService.isLessonCompleted(filePath);
-      console.log(`Completion status for ${filePath}:`, { isCompleted });
+
       setIsCompleted(isCompleted);
     } catch (error) {
       console.error("Error loading completion status:", error);
@@ -36,7 +35,6 @@ export function MarkdownViewer({
   }, [filePath]);
 
   useEffect(() => {
-    console.log(`MarkdownViewer mounted/updated with filePath: ${filePath}`);
     if (filePath) {
       loadCompletionStatus();
     }
@@ -46,11 +44,6 @@ export function MarkdownViewer({
     if (!filePath) return;
     try {
       setLoading(true);
-      console.log(
-        `Toggling completion for ${filePath}: ${
-          isCompleted ? "incomplete" : "complete"
-        }`
-      );
 
       if (isCompleted) {
         LocalStorageService.markLessonIncomplete(filePath);
@@ -59,8 +52,6 @@ export function MarkdownViewer({
         LocalStorageService.markLessonCompleted(filePath);
         setIsCompleted(true);
       }
-
-      console.log(`Successfully updated completion for ${filePath}`);
 
       // Trigger a page refresh to update the progress tracker
       window.dispatchEvent(new CustomEvent("lessonProgressUpdated"));
@@ -86,20 +77,6 @@ export function MarkdownViewer({
               <p className="text-sm text-gray-600 dark:text-gray-400">
                 Mark this lesson as completed when you&apos;re done
               </p>
-              {/* Debug info - remove in production */}
-              {process.env.NODE_ENV === "development" && (
-                <div className="mt-2 p-2 bg-yellow-100 dark:bg-yellow-900/20 rounded text-xs">
-                  <strong>Debug:</strong> File: {filePath} | Status:{" "}
-                  {isCompleted ? "Completed" : "Not Completed"} | Loading:{" "}
-                  {loading ? "Yes" : "No"}
-                  <button
-                    onClick={() => loadCompletionStatus()}
-                    className="ml-2 px-2 py-1 bg-blue-200 dark:bg-blue-800 rounded text-xs"
-                  >
-                    Refresh
-                  </button>
-                </div>
-              )}
             </div>
             <button
               onClick={toggleCompletion}
