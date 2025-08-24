@@ -9,17 +9,13 @@ import {
   CheckCircle,
   Circle,
 } from "lucide-react";
+import { LocalStorageService } from "../lib/local-storage-service";
 
 interface FileItem {
   name: string;
   path: string;
   type: "file" | "folder";
   children?: FileItem[];
-}
-
-interface Lesson {
-  path: string;
-  isCompleted: boolean;
 }
 
 interface FileBrowserProps {
@@ -59,17 +55,17 @@ export function FileBrowser({
     };
   }, []);
 
-  const loadLessonProgress = async () => {
+  const loadLessonProgress = () => {
     try {
-      const response = await fetch("/api/lessons");
-      if (response.ok) {
-        const lessons = await response.json();
-        const progressMap: Record<string, boolean> = {};
-        lessons.forEach((lesson: Lesson) => {
-          progressMap[lesson.path] = lesson.isCompleted;
-        });
-        setLessonProgress(progressMap);
-      }
+      // Initialize lessons if they don't exist
+      LocalStorageService.initializeLessons();
+
+      const lessons = LocalStorageService.getAllLessons();
+      const progressMap: Record<string, boolean> = {};
+      lessons.forEach((lesson) => {
+        progressMap[lesson.path] = lesson.isCompleted;
+      });
+      setLessonProgress(progressMap);
     } catch (error) {
       console.error("Error loading lesson progress:", error);
     }

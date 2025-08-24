@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import { LessonProgressService } from "../../../../lib/lesson-progress";
+import { LocalStorageService } from "../../../../lib/local-storage-service";
 
 export async function PUT(
   request: NextRequest,
@@ -11,10 +11,10 @@ export async function PUT(
     const lessonPath = decodeURIComponent(path);
 
     if (action === "complete") {
-      await LessonProgressService.markLessonCompleted(lessonPath);
+      LocalStorageService.markLessonCompleted(lessonPath);
       return NextResponse.json({ message: "Lesson marked as completed" });
     } else if (action === "incomplete") {
-      await LessonProgressService.markLessonIncomplete(lessonPath);
+      LocalStorageService.markLessonIncomplete(lessonPath);
       return NextResponse.json({ message: "Lesson marked as incomplete" });
     }
 
@@ -35,9 +35,7 @@ export async function GET(
   try {
     const { path } = await params;
     const lessonPath = decodeURIComponent(path);
-    const isCompleted = await LessonProgressService.isLessonCompleted(
-      lessonPath
-    );
+    const isCompleted = LocalStorageService.isLessonCompleted(lessonPath);
     return NextResponse.json({ isCompleted });
   } catch (error) {
     console.error("Error checking lesson status:", error);

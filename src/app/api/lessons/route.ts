@@ -1,12 +1,16 @@
 import { NextRequest, NextResponse } from "next/server";
-import { LessonProgressService } from "../../../lib/lesson-progress";
+import { LocalStorageService } from "../../../lib/local-storage-service";
 
 export async function GET() {
   try {
-    const lessons = await LessonProgressService.getAllLessons();
-    return NextResponse.json(lessons);
+    // Initialize lessons if they don't exist
+    LocalStorageService.initializeLessons();
+
+    // Get lessons from localStorage (this will be handled client-side)
+    // For API compatibility, we'll return an empty array and let the client handle localStorage
+    return NextResponse.json([]);
   } catch (error) {
-    console.error("Error fetching lessons:", error);
+    console.error("Error in lessons API:", error);
     return NextResponse.json(
       { error: "Failed to fetch lessons" },
       { status: 500 }
@@ -19,7 +23,7 @@ export async function POST(request: NextRequest) {
     const { action } = await request.json();
 
     if (action === "initialize") {
-      await LessonProgressService.initializeLessons();
+      LocalStorageService.initializeLessons();
       return NextResponse.json({ message: "Lessons initialized successfully" });
     }
 

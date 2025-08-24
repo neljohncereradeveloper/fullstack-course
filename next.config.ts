@@ -11,14 +11,6 @@ const nextConfig: NextConfig = {
       },
     },
   },
-  webpack: (config, { isServer }) => {
-    if (isServer) {
-      // Ensure Prisma client is properly bundled
-      config.externals = config.externals || [];
-      config.externals.push("@prisma/client");
-    }
-    return config;
-  },
 };
 
 export default nextConfig;

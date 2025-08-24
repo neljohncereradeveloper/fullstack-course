@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import { LessonProgressService } from "../../../lib/lesson-progress";
+import { LocalStorageService } from "../../../lib/local-storage-service";
 
 export async function GET(request: NextRequest) {
   try {
@@ -7,10 +7,10 @@ export async function GET(request: NextRequest) {
     const week = searchParams.get("week");
 
     if (week) {
-      const progress = await LessonProgressService.getWeekProgress(week);
+      const progress = LocalStorageService.getWeekProgress(week);
       return NextResponse.json(progress);
     } else {
-      const overallProgress = await LessonProgressService.getOverallProgress();
+      const overallProgress = LocalStorageService.getOverallProgress();
       return NextResponse.json(overallProgress);
     }
   } catch (error) {
