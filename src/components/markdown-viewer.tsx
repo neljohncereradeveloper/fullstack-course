@@ -19,12 +19,6 @@ export function MarkdownViewer({
   const [isCompleted, setIsCompleted] = useState(false);
   const [loading, setLoading] = useState(false);
 
-  useEffect(() => {
-    if (filePath) {
-      loadCompletionStatus();
-    }
-  }, [filePath]);
-
   const loadCompletionStatus = useCallback(async () => {
     if (!filePath) return;
     try {
@@ -39,6 +33,12 @@ export function MarkdownViewer({
       console.error("Error loading completion status:", error);
     }
   }, [filePath]);
+
+  useEffect(() => {
+    if (filePath) {
+      loadCompletionStatus();
+    }
+  }, [filePath, loadCompletionStatus]);
 
   const toggleCompletion = async () => {
     if (!filePath) return;

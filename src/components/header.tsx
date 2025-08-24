@@ -13,7 +13,6 @@ export function Header({
   isDarkMode,
   onToggleTheme,
   onMobileNavToggle,
-  isMobileNavOpen,
 }: HeaderProps) {
   return (
     <header className="bg-white dark:bg-gray-900 border-b border-gray-200 dark:border-gray-700 px-4 lg:px-6 py-4">
