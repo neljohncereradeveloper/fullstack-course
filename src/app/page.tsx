@@ -318,7 +318,7 @@ We're working hard to bring you high-quality content. This course will be availa
       </div>
 
       {/* Fixed Page Navigation */}
-      <FixedPageNavigation />
+      <FixedPageNavigation show={activeSection === "frontend-course"} />
     </div>
   );
 }

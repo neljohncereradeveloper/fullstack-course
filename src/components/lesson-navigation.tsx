@@ -61,18 +61,15 @@ export function LessonNavigation({
           <Button
             variant="outline"
             onClick={() => onNavigate(previousLesson.path)}
-            className="flex-1 max-w-xs group hover:bg-gray-50 dark:hover:bg-gray-800 border-2 border-gray-200 dark:border-gray-700 hover:border-blue-300 dark:hover:border-blue-600 transition-all duration-200"
+            className="max-w-xs group hover:bg-gray-50 dark:hover:bg-gray-800 border-2 border-gray-200 dark:border-gray-700 hover:border-blue-300 dark:hover:border-blue-600 transition-all duration-200"
           >
-            <div className="flex items-center gap-3 w-full">
+            <div className="flex items-center">
               <div className="p-2 rounded-full bg-gray-100 dark:bg-gray-800 group-hover:bg-blue-100 dark:group-hover:bg-blue-900 transition-colors">
                 <ArrowLeft className="w-4 h-4 text-gray-600 dark:text-gray-400 group-hover:text-blue-600 dark:group-hover:text-blue-400" />
               </div>
-              <div className="text-left flex-1">
+              <div className="text-left">
                 <div className="text-xs text-gray-500 dark:text-gray-400 font-medium uppercase tracking-wide">
                   Previous
-                </div>
-                <div className="text-sm font-semibold text-gray-900 dark:text-white group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
-                  {previousLesson.name}
                 </div>
               </div>
             </div>
@@ -86,15 +83,12 @@ export function LessonNavigation({
           <Button
             variant="outline"
             onClick={() => onNavigate(nextLesson.path)}
-            className="flex-1 max-w-xs group hover:bg-gray-50 dark:hover:bg-gray-800 border-2 border-gray-200 dark:border-gray-700 hover:border-blue-300 dark:hover:border-blue-600 transition-all duration-200"
+            className="max-w-xs group hover:bg-gray-50 dark:hover:bg-gray-800 border-2 border-gray-200 dark:border-gray-700 hover:border-blue-300 dark:hover:border-blue-600 transition-all duration-200"
           >
             <div className="flex items-center gap-3 w-full">
               <div className="text-right flex-1">
                 <div className="text-xs text-gray-500 dark:text-gray-400 font-medium uppercase tracking-wide">
                   Next
-                </div>
-                <div className="text-sm font-semibold text-gray-900 dark:text-white group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
-                  {nextLesson.name}
                 </div>
               </div>
               <div className="p-2 rounded-full bg-gray-100 dark:bg-gray-800 group-hover:bg-blue-100 dark:group-hover:bg-blue-900 transition-colors">

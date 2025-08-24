@@ -74,20 +74,20 @@ export function MarkdownViewer({
     >
       {/* Completion Toggle Button */}
       {filePath && (
-        <div className="mb-6 p-4 bg-gray-50 dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700">
-          <div className="flex items-center justify-between">
-            <div>
-              <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-2">
+        <div className="mb-6 p-3 sm:p-4 bg-gray-50 dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700">
+          <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 sm:gap-0">
+            <div className="flex-1">
+              <h3 className="text-base sm:text-lg font-semibold text-gray-900 dark:text-white mb-1 sm:mb-2">
                 Lesson Progress
               </h3>
-              <p className="text-sm text-gray-600 dark:text-gray-400">
+              <p className="text-xs sm:text-sm text-gray-600 dark:text-gray-400">
                 Mark this lesson as completed when you&apos;re done
               </p>
             </div>
             <button
               onClick={toggleCompletion}
               disabled={loading}
-              className={`flex items-center gap-2 px-4 py-2 rounded-md font-medium transition-colors ${
+              className={`flex items-center justify-center gap-2 px-4 py-3 sm:py-2 rounded-md font-medium transition-colors min-h-[44px] touch-manipulation ${
                 isCompleted
                   ? "bg-green-100 dark:bg-green-900 text-green-800 dark:text-green-200 hover:bg-green-200 dark:hover:bg-green-800"
                   : "bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-200 hover:bg-blue-200 dark:hover:bg-blue-800"
@@ -97,13 +97,13 @@ export function MarkdownViewer({
                 <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-current"></div>
               ) : isCompleted ? (
                 <>
-                  <CheckCircle className="w-4 h-4" />
-                  Completed
+                  <CheckCircle className="w-4 h-4 sm:w-4 sm:h-4" />
+                  <span className="text-sm sm:text-sm">Completed</span>
                 </>
               ) : (
                 <>
-                  <Circle className="w-4 h-4" />
-                  Mark Complete
+                  <Circle className="w-4 h-4 sm:w-4 sm:h-4" />
+                  <span className="text-sm sm:text-sm">Mark Complete</span>
                 </>
               )}
             </button>
@@ -199,20 +199,20 @@ export function MarkdownViewer({
 
       {/* Completion Toggle Button - Bottom */}
       {filePath && (
-        <div className="mt-8 p-4 bg-gray-50 dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700">
-          <div className="flex items-center justify-between">
-            <div>
-              <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-2">
+        <div className="mt-8 p-3 sm:p-4 bg-gray-50 dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700">
+          <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 sm:gap-0">
+            <div className="flex-1">
+              <h3 className="text-base sm:text-lg font-semibold text-gray-900 dark:text-white mb-1 sm:mb-2">
                 Lesson Progress
               </h3>
-              <p className="text-sm text-gray-600 dark:text-gray-400">
+              <p className="text-xs sm:text-sm text-gray-600 dark:text-gray-400">
                 Mark this lesson as completed when you&apos;re done
               </p>
             </div>
             <button
               onClick={toggleCompletion}
               disabled={loading}
-              className={`flex items-center gap-2 px-4 py-2 rounded-md font-medium transition-colors ${
+              className={`flex items-center justify-center gap-2 px-4 py-3 sm:py-2 rounded-md font-medium transition-colors min-h-[44px] touch-manipulation ${
                 isCompleted
                   ? "bg-green-100 dark:bg-green-900 text-green-800 dark:text-green-200 hover:bg-green-200 dark:hover:bg-green-800"
                   : "bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-200 hover:bg-blue-200 dark:hover:bg-blue-800"
@@ -222,13 +222,13 @@ export function MarkdownViewer({
                 <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-current"></div>
               ) : isCompleted ? (
                 <>
-                  <CheckCircle className="w-4 h-4" />
-                  Completed
+                  <CheckCircle className="w-4 h-4 sm:w-4 sm:h-4" />
+                  <span className="text-sm sm:text-sm">Completed</span>
                 </>
               ) : (
                 <>
-                  <Circle className="w-4 h-4" />
-                  Mark Complete
+                  <Circle className="w-4 h-4 sm:w-4 sm:h-4" />
+                  <span className="text-sm sm:text-sm">Mark Complete</span>
                 </>
               )}
             </button>
