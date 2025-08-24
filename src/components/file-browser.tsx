@@ -157,7 +157,7 @@ export function FileBrowser({
           </h2>
         </div>
 
-        <div className="space-y-1 max-h-48 overflow-y-auto scrollbar-hide">
+        <div className="space-y-1 max-h-24 overflow-y-auto scrollbar-hide">
           {isLoading ? (
             <div className="flex items-center justify-center py-6">
               <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-blue-500"></div>
