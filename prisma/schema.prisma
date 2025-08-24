@@ -1,0 +1,37 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = "file:./dev.db"
+}
+
+model Lesson {
+  id          String   @id @default(cuid())
+  path        String   @unique
+  name        String
+  week        String
+  order       Int
+  isCompleted Boolean  @default(false)
+  completedAt DateTime?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@index([week])
+  @@index([isCompleted])
+}
+
+model UserProgress {
+  id        String   @id @default(cuid())
+  userId    String   @unique
+  week      String
+  progress  Float    @default(0) // 0-100 percentage
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([week])
+}

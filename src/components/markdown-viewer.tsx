@@ -1,22 +1,113 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import rehypeHighlight from "rehype-highlight";
 import rehypeRaw from "rehype-raw";
+import { CheckCircle, Circle } from "lucide-react";
 
 interface MarkdownViewerProps {
   content: string;
   className?: string;
+  filePath?: string;
 }
 
 export function MarkdownViewer({
   content,
   className = "",
+  filePath,
 }: MarkdownViewerProps) {
+  const [isCompleted, setIsCompleted] = useState(false);
+  const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    if (filePath) {
+      loadCompletionStatus();
+    }
+  }, [filePath]);
+
+  const loadCompletionStatus = async () => {
+    if (!filePath) return;
+    try {
+      const response = await fetch(
+        `/api/lessons/${encodeURIComponent(filePath)}`
+      );
+      if (response.ok) {
+        const data = await response.json();
+        setIsCompleted(data.isCompleted);
+      }
+    } catch (error) {
+      console.error("Error loading completion status:", error);
+    }
+  };
+
+  const toggleCompletion = async () => {
+    if (!filePath) return;
+    try {
+      setLoading(true);
+      const action = isCompleted ? "incomplete" : "complete";
+      const response = await fetch(
+        `/api/lessons/${encodeURIComponent(filePath)}`,
+        {
+          method: "PUT",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ action }),
+        }
+      );
+
+      if (response.ok) {
+        setIsCompleted(!isCompleted);
+        // Trigger a page refresh to update the progress tracker
+        window.dispatchEvent(new CustomEvent("lessonProgressUpdated"));
+      }
+    } catch (error) {
+      console.error("Error updating completion status:", error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
   return (
     <div
       className={`prose prose-slate dark:prose-invert max-w-none ${className}`}
     >
+      {/* Completion Toggle Button */}
+      {filePath && (
+        <div className="mb-6 p-4 bg-gray-50 dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700">
+          <div className="flex items-center justify-between">
+            <div>
+              <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-2">
+                Lesson Progress
+              </h3>
+              <p className="text-sm text-gray-600 dark:text-gray-400">
+                Mark this lesson as completed when you're done
+              </p>
+            </div>
+            <button
+              onClick={toggleCompletion}
+              disabled={loading}
+              className={`flex items-center gap-2 px-4 py-2 rounded-md font-medium transition-colors ${
+                isCompleted
+                  ? "bg-green-100 dark:bg-green-900 text-green-800 dark:text-green-200 hover:bg-green-200 dark:hover:bg-green-800"
+                  : "bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-200 hover:bg-blue-200 dark:hover:bg-blue-800"
+              }`}
+            >
+              {loading ? (
+                <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-current"></div>
+              ) : isCompleted ? (
+                <>
+                  <CheckCircle className="w-4 h-4" />
+                  Completed
+                </>
+              ) : (
+                <>
+                  <Circle className="w-4 h-4" />
+                  Mark Complete
+                </>
+              )}
+            </button>
+          </div>
+        </div>
+      )}
       <ReactMarkdown
         remarkPlugins={[remarkGfm]}
         rehypePlugins={[rehypeHighlight, rehypeRaw]}
@@ -97,6 +188,45 @@ export function MarkdownViewer({
       >
         {content}
       </ReactMarkdown>
+
+      {/* Completion Toggle Button - Bottom */}
+      {filePath && (
+        <div className="mt-8 p-4 bg-gray-50 dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700">
+          <div className="flex items-center justify-between">
+            <div>
+              <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-2">
+                Lesson Progress
+              </h3>
+              <p className="text-sm text-gray-600 dark:text-gray-400">
+                Mark this lesson as completed when you're done
+              </p>
+            </div>
+            <button
+              onClick={toggleCompletion}
+              disabled={loading}
+              className={`flex items-center gap-2 px-4 py-2 rounded-md font-medium transition-colors ${
+                isCompleted
+                  ? "bg-green-100 dark:bg-green-900 text-green-800 dark:text-green-200 hover:bg-green-200 dark:hover:bg-green-800"
+                  : "bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-200 hover:bg-blue-200 dark:hover:bg-blue-800"
+              }`}
+            >
+              {loading ? (
+                <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-current"></div>
+              ) : isCompleted ? (
+                <>
+                  <CheckCircle className="w-4 h-4" />
+                  Completed
+                </>
+              ) : (
+                <>
+                  <Circle className="w-4 h-4" />
+                  Mark Complete
+                </>
+              )}
+            </button>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Button } from "./ui/button";
 import {
   FileText,
@@ -6,6 +6,8 @@ import {
   BookOpen,
   ChevronDown,
   ChevronRight,
+  CheckCircle,
+  Circle,
 } from "lucide-react";
 
 interface FileItem {
@@ -33,6 +35,40 @@ export function FileBrowser({
   const [expandedFolders, setExpandedFolders] = React.useState<Set<string>>(
     new Set()
   );
+  const [lessonProgress, setLessonProgress] = React.useState<
+    Record<string, boolean>
+  >({});
+
+  React.useEffect(() => {
+    loadLessonProgress();
+
+    // Listen for lesson progress updates
+    const handleProgressUpdate = () => {
+      loadLessonProgress();
+    };
+
+    window.addEventListener("lessonProgressUpdated", handleProgressUpdate);
+
+    return () => {
+      window.removeEventListener("lessonProgressUpdated", handleProgressUpdate);
+    };
+  }, []);
+
+  const loadLessonProgress = async () => {
+    try {
+      const response = await fetch("/api/lessons");
+      if (response.ok) {
+        const lessons = await response.json();
+        const progressMap: Record<string, boolean> = {};
+        lessons.forEach((lesson: any) => {
+          progressMap[lesson.path] = lesson.isCompleted;
+        });
+        setLessonProgress(progressMap);
+      }
+    } catch (error) {
+      console.error("Error loading lesson progress:", error);
+    }
+  };
 
   const toggleFolder = (folderPath: string) => {
     const newExpanded = new Set(expandedFolders);
@@ -74,6 +110,7 @@ export function FileBrowser({
     }
 
     // Files are clickable
+    const isCompleted = lessonProgress[item.path] || false;
     return (
       <div key={item.path} className="w-full">
         <Button
@@ -87,8 +124,23 @@ export function FileBrowser({
           }`}
           onClick={() => onFileSelect(item.path)}
         >
-          <FileText className="w-4 h-4 mr-2 text-gray-500 flex-shrink-0" />
-          <span className="truncate">{item.name}</span>
+          <div className="flex items-center w-full">
+            {isCompleted ? (
+              <CheckCircle className="w-4 h-4 mr-2 text-green-600 dark:text-green-400 flex-shrink-0" />
+            ) : (
+              <Circle className="w-4 h-4 mr-2 text-gray-400 dark:text-gray-500 flex-shrink-0" />
+            )}
+            <FileText className="w-4 h-4 mr-2 text-gray-500 flex-shrink-0" />
+            <span
+              className={`truncate ${
+                isCompleted
+                  ? "line-through text-gray-500 dark:text-gray-400"
+                  : ""
+              }`}
+            >
+              {item.name}
+            </span>
+          </div>
         </Button>
       </div>
     );

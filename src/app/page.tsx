@@ -282,7 +282,10 @@ We're working hard to bring you high-quality content. This course will be availa
                     </span>
                   </div>
                 ) : (
-                  <MarkdownViewer content={markdownContent} />
+                  <MarkdownViewer
+                    content={markdownContent}
+                    filePath={selectedFile || undefined}
+                  />
                 )}
               </div>
             </div>
