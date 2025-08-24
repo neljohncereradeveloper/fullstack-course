@@ -8,6 +8,7 @@ import { MarkdownViewer } from "../components/markdown-viewer";
 import { CourseNavigation } from "../components/course-navigation";
 import { WelcomePage } from "../components/welcome-page";
 import { MobileNavigation } from "../components/mobile-navigation";
+import { FixedPageNavigation } from "../components/fixed-page-navigation";
 import {
   getFileStructure,
   getMarkdownContent,
@@ -204,6 +205,9 @@ We're working hard to bring you high-quality content. This course will be availa
           onNavigate={handleMobileNavigate}
           activeSection={activeSection}
         />
+
+        {/* Fixed Page Navigation */}
+        <FixedPageNavigation />
       </div>
     );
   }
@@ -285,6 +289,8 @@ We're working hard to bring you high-quality content. This course will be availa
                   <MarkdownViewer
                     content={markdownContent}
                     filePath={selectedFile || undefined}
+                    files={files}
+                    onNavigate={handleFileSelect}
                   />
                 )}
               </div>
@@ -310,6 +316,9 @@ We're working hard to bring you high-quality content. This course will be availa
             )}
         </main>
       </div>
+
+      {/* Fixed Page Navigation */}
+      <FixedPageNavigation />
     </div>
   );
 }

@@ -5,17 +5,23 @@ import rehypeHighlight from "rehype-highlight";
 import rehypeRaw from "rehype-raw";
 import { CheckCircle, Circle } from "lucide-react";
 import { LocalStorageService } from "../lib/local-storage-service";
+import { LessonNavigation } from "./lesson-navigation";
+import { FileItem } from "../lib/markdown-service";
 
 interface MarkdownViewerProps {
   content: string;
   className?: string;
   filePath?: string;
+  files?: FileItem[];
+  onNavigate?: (path: string) => void;
 }
 
 export function MarkdownViewer({
   content,
   className = "",
   filePath,
+  files,
+  onNavigate,
 }: MarkdownViewerProps) {
   const [isCompleted, setIsCompleted] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -181,6 +187,15 @@ export function MarkdownViewer({
       >
         {content}
       </ReactMarkdown>
+
+      {/* Lesson Navigation */}
+      {filePath && files && onNavigate && (
+        <LessonNavigation
+          currentFilePath={filePath}
+          files={files}
+          onNavigate={onNavigate}
+        />
+      )}
 
       {/* Completion Toggle Button - Bottom */}
       {filePath && (
