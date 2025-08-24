@@ -9,7 +9,7 @@ export interface LessonProgress {
   week: string;
   order: number;
   isCompleted: boolean;
-  completedAt?: Date;
+  completedAt: Date | null;
 }
 
 export interface WeekProgress {

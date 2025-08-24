@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import { Button } from "./ui/button";
 import {
   FileText,
@@ -15,6 +15,11 @@ interface FileItem {
   path: string;
   type: "file" | "folder";
   children?: FileItem[];
+}
+
+interface Lesson {
+  path: string;
+  isCompleted: boolean;
 }
 
 interface FileBrowserProps {
@@ -60,7 +65,7 @@ export function FileBrowser({
       if (response.ok) {
         const lessons = await response.json();
         const progressMap: Record<string, boolean> = {};
-        lessons.forEach((lesson: any) => {
+        lessons.forEach((lesson: Lesson) => {
           progressMap[lesson.path] = lesson.isCompleted;
         });
         setLessonProgress(progressMap);

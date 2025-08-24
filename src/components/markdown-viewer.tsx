@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import rehypeHighlight from "rehype-highlight";
@@ -25,7 +25,7 @@ export function MarkdownViewer({
     }
   }, [filePath]);
 
-  const loadCompletionStatus = async () => {
+  const loadCompletionStatus = useCallback(async () => {
     if (!filePath) return;
     try {
       const response = await fetch(
@@ -38,7 +38,7 @@ export function MarkdownViewer({
     } catch (error) {
       console.error("Error loading completion status:", error);
     }
-  };
+  }, [filePath]);
 
   const toggleCompletion = async () => {
     if (!filePath) return;
@@ -79,7 +79,7 @@ export function MarkdownViewer({
                 Lesson Progress
               </h3>
               <p className="text-sm text-gray-600 dark:text-gray-400">
-                Mark this lesson as completed when you're done
+                Mark this lesson as completed when you&apos;re done
               </p>
             </div>
             <button
@@ -132,16 +132,13 @@ export function MarkdownViewer({
               {children}
             </p>
           ),
-          code: ({ children, className }) => {
-            const language = className?.replace("language-", "") || "";
-            return (
-              <code
-                className={`bg-gray-100 dark:bg-gray-800 text-gray-800 dark:text-gray-200 px-2 py-1 rounded text-xs lg:text-sm font-mono ${className}`}
-              >
-                {children}
-              </code>
-            );
-          },
+          code: ({ children, className }) => (
+            <code
+              className={`bg-gray-100 dark:bg-gray-800 text-gray-800 dark:text-gray-200 px-2 py-1 rounded text-xs lg:text-sm font-mono ${className}`}
+            >
+              {children}
+            </code>
+          ),
           pre: ({ children }) => (
             <pre className="bg-gray-100 dark:bg-gray-800 p-3 lg:p-4 rounded-lg overflow-x-auto mb-3 lg:mb-4 text-xs lg:text-sm">
               {children}
@@ -198,7 +195,7 @@ export function MarkdownViewer({
                 Lesson Progress
               </h3>
               <p className="text-sm text-gray-600 dark:text-gray-400">
-                Mark this lesson as completed when you're done
+                Mark this lesson as completed when you&apos;re done
               </p>
             </div>
             <button

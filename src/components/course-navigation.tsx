@@ -1,6 +1,6 @@
 import React from "react";
 import { FileText, Code, Database, Server, ChevronRight } from "lucide-react";
-import { Button } from "./ui/button";
+
 
 interface CourseSection {
   id: string;

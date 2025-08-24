@@ -1,7 +1,7 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
-import { BookOpen, Menu, X } from "lucide-react";
+import React, { useState, useEffect, useCallback } from "react";
+import { BookOpen } from "lucide-react";
 import { Header } from "../components/header";
 import { FileBrowser } from "../components/file-browser";
 import { MarkdownViewer } from "../components/markdown-viewer";
@@ -25,21 +25,7 @@ export default function Home() {
   const [activeSection, setActiveSection] = useState<string | null>(null);
   const [isMobileNavOpen, setIsMobileNavOpen] = useState(false);
 
-  useEffect(() => {
-    // Load file structure
-    loadFileStructure();
-  }, []);
-
-  useEffect(() => {
-    // Apply dark mode to body
-    if (isDarkMode) {
-      document.documentElement.classList.add("dark");
-    } else {
-      document.documentElement.classList.remove("dark");
-    }
-  }, [isDarkMode]);
-
-  const loadFileStructure = async () => {
+  const loadFileStructure = useCallback(async () => {
     try {
       setIsLoadingFiles(true);
       const fileStructure = await getFileStructure();
@@ -59,7 +45,21 @@ export default function Home() {
     } finally {
       setIsLoadingFiles(false);
     }
-  };
+  }, [selectedFile]);
+
+  useEffect(() => {
+    // Load file structure
+    loadFileStructure();
+  }, [loadFileStructure]);
+
+  useEffect(() => {
+    // Apply dark mode to body
+    if (isDarkMode) {
+      document.documentElement.classList.add("dark");
+    } else {
+      document.documentElement.classList.remove("dark");
+    }
+  }, [isDarkMode]);
 
   const handleSectionSelect = (sectionId: string) => {
     setActiveSection(sectionId);

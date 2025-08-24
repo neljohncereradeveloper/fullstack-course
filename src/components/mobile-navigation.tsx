@@ -1,5 +1,5 @@
 import React from "react";
-import { X, Menu, Home, BookOpen, Settings } from "lucide-react";
+import { X, Home, BookOpen } from "lucide-react";
 import { Button } from "./ui/button";
 
 interface MobileNavigationProps {
