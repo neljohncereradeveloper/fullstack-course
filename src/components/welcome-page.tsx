@@ -31,11 +31,11 @@ export function WelcomePage({ onGetStarted }: WelcomePageProps) {
             Master the complete web development stack from frontend to backend
           </p>
           <Button
-            onClick={onGetStarted}
+            // onClick={onGetStarted}
             size="lg"
             className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white px-6 lg:px-8 py-3 lg:py-4 text-base lg:text-lg"
           >
-            Start Learning
+            Coming Soon..
           </Button>
         </div>
 
@@ -52,7 +52,7 @@ export function WelcomePage({ onGetStarted }: WelcomePageProps) {
               HTML, CSS, React, and modern JavaScript development
             </p>
             <div className="text-xs lg:text-sm text-green-600 dark:text-green-400 font-medium">
-              ✅ Available Now
+              🚧 Coming Soon
             </div>
           </div>
 
@@ -146,7 +146,7 @@ export function WelcomePage({ onGetStarted }: WelcomePageProps) {
 
           <div className="flex flex-col lg:flex-row items-center justify-between">
             <div className="flex items-center mb-4 lg:mb-0">
-              <div className="w-6 h-6 lg:w-8 lg:h-8 bg-blue-500 text-white rounded-full flex items-center justify-center text-xs lg:text-sm font-semibold mr-3">
+              <div className="w-6 h-6 lg:w-8 lg:h-8 bg-gray-300 text-gray-600 rounded-full flex items-center justify-center text-xs lg:text-sm font-semibold mr-3">
                 1
               </div>
               <div className="text-left">
@@ -154,7 +154,7 @@ export function WelcomePage({ onGetStarted }: WelcomePageProps) {
                   Frontend Foundation
                 </div>
                 <div className="text-xs lg:text-sm text-gray-600 dark:text-gray-400">
-                  4 weeks • Available now
+                  4 weeks • Coming soon
                 </div>
               </div>
             </div>

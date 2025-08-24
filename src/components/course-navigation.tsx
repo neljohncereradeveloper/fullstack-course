@@ -1,7 +1,6 @@
 import React from "react";
 import { FileText, Code, Database, Server, ChevronRight } from "lucide-react";
 
-
 interface CourseSection {
   id: string;
   title: string;
@@ -22,7 +21,8 @@ const courseSections: CourseSection[] = [
     title: "Frontend Development",
     description: "HTML, CSS, and React fundamentals",
     icon: <Code className="w-5 h-5" />,
-    status: "available",
+    // status: "available",
+    status: "coming-soon",
     lessons: 12,
   },
   {
