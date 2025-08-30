@@ -21,8 +21,7 @@ const courseSections: CourseSection[] = [
     title: "Frontend Development",
     description: "HTML, CSS, and React fundamentals",
     icon: <Code className="w-5 h-5" />,
-    // status: "available",
-    status: "coming-soon",
+    status: "available",
     lessons: 12,
   },
   {

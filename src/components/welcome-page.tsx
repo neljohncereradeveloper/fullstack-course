@@ -31,11 +31,11 @@ export function WelcomePage({ onGetStarted }: WelcomePageProps) {
             Master the complete web development stack from frontend to backend
           </p>
           <Button
-            // onClick={onGetStarted}
+            onClick={onGetStarted}
             size="lg"
             className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white px-6 lg:px-8 py-3 lg:py-4 text-base lg:text-lg"
           >
-            Coming Soon..
+            Get Started
           </Button>
         </div>
 
@@ -52,7 +52,7 @@ export function WelcomePage({ onGetStarted }: WelcomePageProps) {
               HTML, CSS, React, and modern JavaScript development
             </p>
             <div className="text-xs lg:text-sm text-green-600 dark:text-green-400 font-medium">
-              🚧 Coming Soon
+              � Available Now
             </div>
           </div>
 
@@ -154,7 +154,7 @@ export function WelcomePage({ onGetStarted }: WelcomePageProps) {
                   Frontend Foundation
                 </div>
                 <div className="text-xs lg:text-sm text-gray-600 dark:text-gray-400">
-                  4 weeks • Coming soon
+                  4 weeks • Available Now
                 </div>
               </div>
             </div>
